@@ -14,6 +14,7 @@ import java.util.List;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLServerSocketFactory;
+
 /**
  * Game Server
  */
@@ -41,6 +42,7 @@ public class GameServer {
 
 		    context = SSLContext.getInstance("TLS");
 		    kmf = KeyManagerFactory.getInstance("SunX509");
+		System.out.println("Test");
 		    FileInputStream fin = new FileInputStream(Configuration.STORE_NAME);
 		    ks = KeyStore.getInstance("JKS");
 		    ks.load(fin, Configuration.STORE_PASS.toCharArray());

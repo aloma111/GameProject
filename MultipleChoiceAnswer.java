@@ -6,7 +6,7 @@ import java.io.Serializable;
  * multi-choice answer
  */
 @SuppressWarnings("serial")
-public class MultiChoiceAnswer extends Answer implements Serializable{
+class MultiChoiceAnswer extends Answer implements Serializable{
     private String answer;
 
     public MultiChoiceAnswer(int questionID, String answerType, char result, String answer) {

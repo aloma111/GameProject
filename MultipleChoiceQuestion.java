@@ -8,7 +8,7 @@ import java.util.List;
  * multi-choice question
  */
 @SuppressWarnings("serial")
-public class MultiChoiceQuestion extends Question  implements Serializable{
+class MultiChoiceQuestion extends Question  implements Serializable{
     
     private String correctAnswer;
     private List<String> options = new ArrayList<>();
