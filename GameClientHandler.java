@@ -46,9 +46,8 @@ public class GameClientHandler extends Thread{
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out = new PrintStream(socket.getOutputStream());
 			
-			//read a line and print it
- 			//this is debug line, the line will be processed later
-			out.println("Got Message: " + in.readLine());
+			String name = in.readLine();
+			System.out.println("Welcome " + name + ", the game will begin shortly");
 			
 			int state = 0;
 			while(state < 4)
@@ -56,9 +55,7 @@ public class GameClientHandler extends Thread{
 				switch(state)
 				{	
 					case 0:
-						//read a line and print it
-						//this is debug line, the line will be processed later
-						out.println("Player Connected\nThe game will begin shortly.\n");
+						//waiting for other players
 						state = 1;
 						break;
 
