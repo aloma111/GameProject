@@ -58,25 +58,16 @@ public class GameClientHandler extends Thread{
 					case 0:
 						//read a line and print it
 						//this is debug line, the line will be processed later
-						out.println("Player Connected");
+						out.println("Player Connected\nThe game will begin shortly.\n");
 						state = 1;
 						break;
 
 					case 1:
-						//prints what the client types as long as it is not '~'
-						//while(in.readLine().substring(0,1) != "~")
-						//{
-							
-							out.println("From Player: " + in.readLine());
-						//}
-						
-						state = 4;
-						break;
-					
-					
-						
-						
-						
+						//Sends Players The Question
+					case 2:
+						//Checks for Answers and Last Question
+					case 3:
+						//Last Question & Show Scores			
 				}//switch
 			}//while
 			//close resources
