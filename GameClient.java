@@ -49,7 +49,7 @@ public class GameClient {
 			//creat input/output streams
 			OutputStream out = socket.getOutputStream();
 			BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-			//BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			
 			//send player name
 			System.out.println("Please enter your name");
