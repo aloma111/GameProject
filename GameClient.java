@@ -48,7 +48,7 @@ public class GameClient {
 
 			// write some words
 			OutputStream out = socket.getOutputStream();
-			//out.write("hello\n".getBytes());
+			out.write("hello\n".getBytes());
 			//out.flush();
 
 			//read a line and simply print on standard output
