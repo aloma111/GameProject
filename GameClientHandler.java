@@ -60,7 +60,7 @@ public class GameClientHandler extends Thread{
 						//prints what the client types as long as it is not '~'
 						while(in.readLine().substring(0,1) != "~")
 						{
-							out.println("From Player: " + in.readLine());
+							out.println("From Player: " + in.readLine().getBytes());
 						}
 						
 						state = 4;
