@@ -44,6 +44,11 @@ public class GameClientHandler extends Thread{
 			//create BufferedReader and PrintStream
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out = new PrintStream(socket.getOutputStream());
+			
+			//read a line and print it
+ 			//this is debug line, the line will be processed later
+ 			out.println("Got message: " + in.readLine());
+			
 			int state = 0;
 			while(state < 4)
 			{
