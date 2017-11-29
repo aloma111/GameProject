@@ -57,7 +57,7 @@ public class GameClient {
 			String line = in.readLine();
 			String message = inFromUser.readLine();
 			out.write(message.getBytes());
-			while (true) {
+			while (line.substring(0,1) != "~") {
 				System.out.println(line);
 				message = inFromUser.readLine();
 				out.write(message.getBytes());
