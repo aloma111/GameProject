@@ -55,7 +55,7 @@ public class GameClient {
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String line = in.readLine();
 			while (line != null) {
-				out.write(line);
+				out.write(line.getBytes());
 				line = in.readLine();
 			}
 
