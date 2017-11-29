@@ -48,14 +48,15 @@ public class GameClient {
 
 			// write some words
 			OutputStream out = socket.getOutputStream();
-			out.write("hello\n".getBytes());
-			out.flush();
+			//out.write("hello\n".getBytes());
+			//out.flush();
 
 			//read a line and simply print on standard output
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+			String message = inFromUser.readLine();
+			out.write(message.getBytes());
 			String line = in.readLine();
-			String message;
 			while (line != null) {
 				System.out.println(line);
 				message = inFromUser.readLine();
