@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.io.OutputStream;
 
 public class GameClientHandler extends Thread{
 	
@@ -43,11 +44,11 @@ public class GameClientHandler extends Thread{
 		try {
 			//create BufferedReader and PrintStream
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			out = new PrintStream(socket.getOutputStream());
+			OutputStream out = socket.getOutputStream();
 			
 			//read a line and print it
  			//this is debug line, the line will be processed later
- 			out.println("Got message: " + in.readLine());
+ 			out.write("Got message: " + in.readLine().getBytes());
 			
 			int state = 0;
 			while(state < 4)
@@ -57,7 +58,7 @@ public class GameClientHandler extends Thread{
 					case 0:
 						//read a line and print it
 						//this is debug line, the line will be processed later
-						out.println("Player Connected");
+						out.write("Player Connected\n".getBytes());
 						state = 1;
 						break;
 
@@ -65,7 +66,8 @@ public class GameClientHandler extends Thread{
 						//prints what the client types as long as it is not '~'
 						//while(in.readLine().substring(0,1) != "~")
 						//{
-							out.println("From Player: " + in.readLine());
+							String message = "From Player: " + in.readLine()"
+							out.write((message+"\n").getBytes());
 						//}
 						
 						state = 4;
