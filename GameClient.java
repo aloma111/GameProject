@@ -54,10 +54,13 @@ public class GameClient {
 			//read a line and simply print on standard output
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-			String line = inFromUser.readLine();
-			while (line != null) {
-				out.write(line.getBytes());
-				line = inFromUser.readLine();
+			String line = in.readLine();
+			String message = inFromUser.readLine();
+			out.write(message.getBytes());
+			while (true) {
+				System.out.println(line);
+				message = inFromUser.getLine();
+				out.write(message.getBytes());
 			}
 
 			//close resource
