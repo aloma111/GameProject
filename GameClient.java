@@ -25,7 +25,7 @@ public class GameClient {
 	/**
 	 * server host
 	 */
-	private static String SERVER_HOST = "localhost";
+	private static String SERVER_HOST = "127.0.0.1";
 
 	/**
 	 * server port
@@ -49,7 +49,7 @@ public class GameClient {
 			// write some words
 			OutputStream out = socket.getOutputStream();
 			out.write("hello\n".getBytes());
-			out.flush();
+			//out.flush();
 
 			//read a line and simply print on standard output
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
