@@ -55,12 +55,14 @@ public class GameClient {
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 			String message = inFromUser.readLine();
-			out.write(message.getBytes());
+			System.out.println(message);
+			//out.write(message.getBytes());
 			String line = in.readLine();
 			while (line != null) {
 				System.out.println(line);
 				message = inFromUser.readLine();
-				out.write(message.getBytes());
+				System.out.println(message);
+				//out.write(message.getBytes());
 				line = in.readLine();
 			}
 
