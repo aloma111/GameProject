@@ -59,7 +59,7 @@ public class GameClient {
 			out.write(message.getBytes());
 			while (true) {
 				System.out.println(line);
-				message = inFromUser.getLine();
+				message = inFromUser.readLine();
 				out.write(message.getBytes());
 			}
 
