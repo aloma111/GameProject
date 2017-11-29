@@ -57,12 +57,12 @@ public class GameClient {
 			out.write(name.getBytes());
 			out.flush();
 			
-			/*String line = in.readLine();
+			String line = in.readLine();
 			while (line != null){
 				System.out.println(line);
 				line = in.readLine();
 			}
-		
+			/*
 			//out.write(message.getBytes());
 			line = in.readLine();
 			while (line != null) {
