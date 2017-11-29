@@ -57,11 +57,13 @@ public class GameClient {
 			String line = in.readLine();
 			String message = inFromUser.readLine();
 			out.write(message.getBytes());
-			while (line.substring(0,1) != "~") {
-				line = in.readLine();
+			int i = 0;
+			while (i < 4) {
 				System.out.println(line);
 				message = inFromUser.readLine();
 				out.write(message.getBytes());
+				line = in.readLine();
+				i++;
 			}
 
 			//close resource
