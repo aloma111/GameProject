@@ -44,11 +44,34 @@ public class GameClientHandler extends Thread{
 			//create BufferedReader and PrintStream
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out = new PrintStream(socket.getOutputStream());
-			
-			//read a line and print it
-			//this is debug line, the line will be processed later
-			out.println("Got message: " + in.readLine());
-			
+			int state = 0;
+			while(state < 4)
+			{
+				switch(state)
+				{	
+					case 0:
+						//read a line and print it
+						//this is debug line, the line will be processed later
+						out.println("Player Connected");
+						state = 1;
+						break;
+
+					case 1:
+						//prints what the client types as long as it is not '~'
+						while(in.readLine() != '~')
+						{
+							out.println("From Player: " + in.readLine());
+						}
+						
+						state = 4;
+						break;
+					
+					
+						
+						
+						
+				}//switch
+			}//while
 			//close resources
 			in.close();
 			out.close();
