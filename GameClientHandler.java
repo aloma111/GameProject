@@ -47,7 +47,7 @@ public class GameClientHandler extends Thread{
 			out = new PrintStream(socket.getOutputStream());
 			
 			String name = in.readLine();
-			System.out.println("Welcome " + name + ", the game will begin shortly");
+			out.println("Welcome " + name + ", the game will begin shortly");
 			
 			int state = 0;
 			while(state < 4)
