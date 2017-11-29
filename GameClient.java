@@ -45,28 +45,32 @@ public class GameClient {
 		try {
 			//create socket
 			Socket socket = sf.createSocket(SERVER_HOST, SERVER_PORT);
-
-			// write some words
+			
+			//creat input/output streams
 			OutputStream out = socket.getOutputStream();
-			out.write("Welcome To The Game\n".getBytes());
-			//out.flush();
-
-			//read a line and simply print on standard output
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println(in.readLine());
-			System.out.println(in.readLine());
-			String message = inFromUser.readLine();
-			System.out.println(message);
+			//BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			
+			//send player name
+			System.out.println("Please enter your name");
+			String name = inFromUser.readLine();
+			out.write(name.getBytes());
+			out.flush();
+			
+			/*String line = in.readLine();
+			while (line != null){
+				System.out.println(line);
+				line = in.readLine();
+			}
+		
 			//out.write(message.getBytes());
-			String line = in.readLine();
+			line = in.readLine();
 			while (line != null) {
 				System.out.println(line);
 				message = inFromUser.readLine();
-				System.out.println(message);
-				//out.write(message.getBytes());
+				out.write(message.getBytes());
 				line = in.readLine();
-			}
+			}*/
 
 			//close resource
 			out.close();
