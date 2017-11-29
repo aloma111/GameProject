@@ -25,7 +25,7 @@ public class GameClient {
 	/**
 	 * server host
 	 */
-	private static String SERVER_HOST = "127.0.0.1";
+	private static String SERVER_HOST = "localhost";
 
 	/**
 	 * server port
