@@ -40,7 +40,7 @@ public class GameClientHandler extends Thread{
 		//reader
 		BufferedReader in;
 		//writer
-		PrintStream out;
+		//PrintStream out;
 		try {
 			//create BufferedReader and PrintStream
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -48,7 +48,8 @@ public class GameClientHandler extends Thread{
 			
 			//read a line and print it
  			//this is debug line, the line will be processed later
- 			out.write("Got message: " + in.readLine().getBytes());
+			String message = "Got Message: " + in.readLine();
+ 			out.write(message.getBytes());
 			
 			int state = 0;
 			while(state < 4)
@@ -66,7 +67,7 @@ public class GameClientHandler extends Thread{
 						//prints what the client types as long as it is not '~'
 						//while(in.readLine().substring(0,1) != "~")
 						//{
-							String message = "From Player: " + in.readLine();
+							message = "From Player: " + in.readLine();
 							out.write((message+"\n").getBytes());
 						//}
 						
