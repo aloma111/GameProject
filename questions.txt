@@ -1,0 +1,31 @@
+#comment: 1: yes/no question, 1: multi-choice question
+1
+Java is OOP?
+true
+1
+variable is keyword in java
+false
+2
+Which of these keywords is used to make a class?
+4
+class
+struct
+int
+None of the mentioned
+a
+2
+Which of these operators is used to allocate memory for an object?
+4
+malloc
+alloc
+new
+give
+c
+2
+Which of the following is true?
+4
+A finally block is executed before the catch block but after the try block
+A finally block is executed, only after the catch block is executed
+A finally block is executed whether an exception is thrown or not
+A finally block is always executed
+ce
