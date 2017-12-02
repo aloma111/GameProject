@@ -73,6 +73,12 @@ public class GameServer extends Thread{
 	 * @return current question
 	 */
 	public Question getCurrentQuestion(){
+		
+		//TODO - Test only
+		for (int i = 0; i < (int)(Math.random() * 4); i++){
+			question = questionGenerator.getQuestion();
+		}
+		
 		return question;
 	}
 	

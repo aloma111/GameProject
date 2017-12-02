@@ -14,11 +14,15 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 import javax.net.ssl.SSLSocketFactory;
+
+import question.Question;
 
 public class GameClient extends Thread{
 
@@ -58,30 +62,28 @@ public class GameClient extends Thread{
 
 		try {
 			//create socket
-			Socket socket = sf.createSocket(SERVER_HOST, SERVER_PORT);
+			Socket socket = sf.createSocket(SERVER_HOST, SERVER_PORT);			
 
-			// write some words
-			OutputStream out = socket.getOutputStream();
-			out.write("hello\n".getBytes());
-			out.flush();
-
-			//read a line and simply print on standard output
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			String line = in.readLine();
-			while (line != null) {
-				System.out.println(line);
-				line = in.readLine();
-			}
-
-			clientGUI.printMessage("Client is running");
+			ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
 			
+			//read question from server
+			socket.getInputStream();
+			
+			ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+			Message message = (Message)inputStream.readObject();
+			
+			clientGUI.updateQuestionPanel(new ClientQuestionPanel(message.getQuestion()));
+						
 			//close resource
-			out.close();
+			inputStream.close();
+			outputStream.close();
 			socket.close();
 
 		} catch (UnknownHostException e) {
 			clientGUI.printMessage(e.getMessage());
 		} catch (IOException e) {
+			clientGUI.printMessage(e.getMessage());
+		} catch (ClassNotFoundException e) {
 			clientGUI.printMessage(e.getMessage());
 		}
 	}

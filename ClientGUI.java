@@ -28,6 +28,11 @@ public class ClientGUI extends JFrame{
 	private JButton btnConnect;
 	
 	/**
+	 * answer
+	 */
+	private JButton btnAnswer;
+	
+	/**
 	 * close client
 	 */
 	private JButton btnClose;
@@ -37,6 +42,11 @@ public class ClientGUI extends JFrame{
 	 * messages
 	 */
 	private JTextArea txtMessage;
+	
+	/**
+	 * panel to display question
+	 */
+	private ClientQuestionPanel clientQuestionPanel;
 	
 	/**
 	 * constructor
@@ -53,6 +63,8 @@ public class ClientGUI extends JFrame{
 		
 		btnConnect = new JButton("Connect to Server");
 		btnClose = new JButton("Close Client");
+		btnAnswer = new JButton("Answer");
+		
 		txtMessage = new JTextArea();
 		txtMessage.setEditable(false);
 		
@@ -62,8 +74,11 @@ public class ClientGUI extends JFrame{
 		
 		JPanel addBtnPanel = new JPanel();
 		addBtnPanel.add(btnConnect);
+		addBtnPanel.add(btnAnswer);
 		addBtnPanel.add(btnClose);
 		
+		clientQuestionPanel = new ClientQuestionPanel(null);
+		add(clientQuestionPanel, BorderLayout.CENTER);
 		
 		//set event 
 		btnConnect.addActionListener(new ActionListener() {
@@ -80,13 +95,25 @@ public class ClientGUI extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//close server
+				//close client
 				close();
+			}
+		});
+		
+		//set event 
+		btnAnswer.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//answer
+				doAnswer();
 			}
 		});
 
 		add(addBtnPanel, BorderLayout.SOUTH);
 		add(jScrollPane, BorderLayout.NORTH);
+		
+		
 		
 		//set frame properties
 		setTitle("Client");
@@ -96,12 +123,29 @@ public class ClientGUI extends JFrame{
 	}	
 	
 	/**
+	 * send answer to server
+	 */
+	private void doAnswer(){
+		
+	}
+	
+	/**
 	 * connect to server
 	 */
 	private void connect(){
 		//create GameClient object and calls its run method
 		GameClient client = new GameClient(this);
-		client.run();
+		client.start();
+	}
+	
+	/**
+	 * update question panel
+	 */
+	public void updateQuestionPanel(ClientQuestionPanel panel){
+		remove(clientQuestionPanel);
+		clientQuestionPanel = panel;
+		add(panel, BorderLayout.CENTER);
+		validate();
 	}
 	
 	/**
