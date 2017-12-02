@@ -1,3 +1,12 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import question.MultiChoiceQuestion;
+import question.Question;
+import question.TrueFalseQuestion;
 
 /**
  * 
@@ -13,6 +22,21 @@
 public class QuestionGenerator {
 	
 	/**
+	 * current question index
+	 */
+	private int index = -1;
+	
+	/**
+	 * questions list
+	 */
+	private List<Question> questions;
+	
+	/**
+	 * questions file name
+	 */
+	private static final String QUESTIONS_FILENAME = "questions.txt";
+	
+	/**
 	 * a unique instance object of QuestionGenerator
 	 */
 	private static QuestionGenerator questionGenerator;
@@ -20,9 +44,50 @@ public class QuestionGenerator {
 	/**
 	 * private constructor
 	 * the client code cannot create this object
+	 * @throws FileNotFoundException file not found
 	 */
-	private QuestionGenerator(){
+	private QuestionGenerator() throws FileNotFoundException{
+		loadQuestions();
+	}
+	
+	/**
+	 * load questions
+	 * @throws FileNotFoundException 
+	 */
+	private void loadQuestions() throws FileNotFoundException{
+		//create Scanner object
+		Scanner fileScanner = new Scanner(new File(QUESTIONS_FILENAME));
 		
+		//question index
+		int questionIndex = 1;
+		
+		//read line by line
+		while (fileScanner.hasNextLine()){
+			String line = fileScanner.nextLine();
+			if (line.startsWith("#")){//comment line
+				continue;
+			}
+			
+			Question question  = null;
+			
+			if (line.equals("1")){//true/false question
+				question = new TrueFalseQuestion(questionIndex++, fileScanner.nextLine(), fileScanner.nextLine().equals("true"));
+			}else{//multi choice question
+				String content = fileScanner.nextLine();
+				int numOptions = Integer.parseInt(fileScanner.nextLine());
+				List<String> options = new ArrayList<>();
+				for (int i = 0; i < numOptions; i++){
+					options.add(fileScanner.nextLine());
+				}
+				String answer = fileScanner.nextLine();
+				question = new MultiChoiceQuestion(questionIndex++, content, answer, answer.length() > 1);
+				((MultiChoiceQuestion)question).setOptions(options);				
+			}
+			
+			questions.add(question);
+		}
+		//close file
+		fileScanner.close();
 	}
 	
 	/**
@@ -31,8 +96,23 @@ public class QuestionGenerator {
 	 */
 	public static QuestionGenerator instance(){
 		if (questionGenerator == null){
-			questionGenerator = new QuestionGenerator();
+			try {
+				questionGenerator = new QuestionGenerator();
+			} catch (FileNotFoundException e) {
+				// exception, print to standard output
+				e.printStackTrace();
+			}
 		}
 		return questionGenerator;
 	}
+	
+	/**
+	 * get current question
+	 * @return
+	 */
+	public Question getQuestion(){
+		index = (index + 1) % questions.size();
+		return questions.get(index);
+	}
+	
 }

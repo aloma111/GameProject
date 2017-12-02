@@ -12,7 +12,6 @@
  */
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.KeyStore;
@@ -22,10 +21,12 @@ import java.util.List;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLServerSocketFactory;
+
+import question.Question;
 /**
  * Game Server
  */
-public class GameServer {
+public class GameServer extends Thread{
 
 	/**
 	 * server port
@@ -38,18 +39,48 @@ public class GameServer {
 	private List<GameClientHandler> clientHandlers;
 	
 	/**
+	 * reference to GUI to display message
+	 */
+	private ServerGUI serverGUI;
+	
+	/**
+	 * question generator
+	 */
+	private QuestionGenerator questionGenerator;
+	
+	/**
 	 * constructor
 	 * initialize the array list
 	 */
-	public GameServer(){
+	public GameServer(ServerGUI serverGUI){
 		clientHandlers = new ArrayList<>();
+		this.serverGUI = serverGUI;
+		
+		//create unique instance of question generator
+		questionGenerator = QuestionGenerator.instance();
+		
+		//TODO, create sample
+		question = questionGenerator.getQuestion();
+	}
+	
+	/**
+	 * current question
+	 */
+	private Question question = null;
+	
+	/**
+	 * get current question
+	 * @return current question
+	 */
+	public Question getCurrentQuestion(){
+		return question;
 	}
 	
 	/**
 	 * run the sever
 	 * @throws Exception if there is error in key store
 	 */
-	public void run() throws Exception{
+	public void run(){
 		
 		try{
 			
@@ -81,28 +112,25 @@ public class GameServer {
 		    	Socket s = ss.accept();
 		      
 		    	//add GameClientHandler object, add to list and start it as thread
-		    	GameClientHandler clientHandler = new GameClientHandler(s);
+		    	GameClientHandler clientHandler = new GameClientHandler(this, s);
 		    	clientHandlers.add(clientHandler);
 		    	clientHandler.start();
 		    }
 		    
-		}catch(IOException e){
+		}catch(Exception e){
 			
 			//any exception, simply print to standard output
-			System.out.println(e.getMessage());
+			serverGUI.printMessage(e.getMessage());
 		}
 	}
-	
-	/**
-	 * main method to start java application
-	 * @param args the program argument
-	 * @throws Exception if error
-	 */
-	public static void main(String[] args) throws Exception {
-		//create Game server and call its run() method
-		GameServer server = new GameServer();
-		server.run();
-	}
 
+	/**
+	 * get reference to server GUI
+	 * @return server GUI
+	 */
+	public ServerGUI getServerGUI() {
+		return serverGUI;
+	}	
+	
 	
 }

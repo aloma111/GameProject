@@ -20,17 +20,31 @@ import java.net.UnknownHostException;
 
 import javax.net.ssl.SSLSocketFactory;
 
-public class GameClient {
+public class GameClient extends Thread{
 
 	/**
 	 * server host
 	 */
-	private static String SERVER_HOST = "localhost";
+	private static String SERVER_HOST = "127.0.0.1";
 
 	/**
 	 * server port
 	 */
 	private static int SERVER_PORT = 1234;
+	
+	/**
+	 * reference to GUI to display message
+	 */
+	private ClientGUI clientGUI;
+	
+	/**
+	 * constructor
+	 * 
+	 * @param clientGUI reference to GUI
+	 */
+	public GameClient(ClientGUI clientGUI) {
+		this.clientGUI = clientGUI;
+	}
 
 	/**
 	 * run method, this method is called by start method The method read command
@@ -45,54 +59,33 @@ public class GameClient {
 		try {
 			//create socket
 			Socket socket = sf.createSocket(SERVER_HOST, SERVER_PORT);
-			
-			//creat input/output streams
+
+			// write some words
 			OutputStream out = socket.getOutputStream();
-			BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			
-			//send player name
-			System.out.println("Please enter your name");
-			String name = inFromUser.readLine();
-			out.write(name.getBytes());
+			out.write("hello\n".getBytes());
 			out.flush();
-			
+
+			//read a line and simply print on standard output
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String line = in.readLine();
-			while (line != null){
+			while (line != null) {
 				System.out.println(line);
 				line = in.readLine();
 			}
-			/*
-			//out.write(message.getBytes());
-			line = in.readLine();
-			while (line != null) {
-				System.out.println(line);
-				message = inFromUser.readLine();
-				out.write(message.getBytes());
-				line = in.readLine();
-			}*/
 
+			clientGUI.printMessage("Client is running");
+			
 			//close resource
 			out.close();
 			socket.close();
 
 		} catch (UnknownHostException e) {
-			//host not found, simply print on standard output
-			e.printStackTrace();
+			clientGUI.printMessage(e.getMessage());
 		} catch (IOException e) {
-			//I/O exception, simply print on standard output
-			e.printStackTrace();
+			clientGUI.printMessage(e.getMessage());
 		}
 	}
 
-	/**
-	 * main method to start java application
-	 * @param args the program argument
-	 */
-	public static void main(String[] args) {
-		//create GameClient object and calls its run method
-		GameClient client = new GameClient();
-		client.run();
-	}
+	
 
 }

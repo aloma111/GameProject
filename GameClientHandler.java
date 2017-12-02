@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.io.OutputStream;
 
 public class GameClientHandler extends Thread{
 	
@@ -23,11 +22,17 @@ public class GameClientHandler extends Thread{
 	private Socket socket;
 	
 	/**
+	 * a reference to game server
+	 */
+	private GameServer gameServer;
+	
+	/**
 	 * constructor method
 	 * 
 	 * @param socket reference to socket that get from GameServer
 	 */
-	public GameClientHandler(Socket socket) {
+	public GameClientHandler(GameServer gameServer, Socket socket) {
+		this.gameServer = gameServer;
 		this.socket = socket;
 	}
 
@@ -46,27 +51,14 @@ public class GameClientHandler extends Thread{
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out = new PrintStream(socket.getOutputStream());
 			
-			String name = in.readLine();
-			out.println("Welcome " + name + ", the game will begin shortly");
+			//read a line and print it
+			//this is debug line, the line will be processed later
+			String message = in.readLine();
+			out.println("Got message: " + message);
 			
-			int state = 0;
-			while(state < 4)
-			{
-				switch(state)
-				{	
-					case 0:
-						//waiting for other players
-						state = 1;
-						break;
-
-					case 1:
-						//Sends Players The Question
-					case 2:
-						//Checks for Answers and Last Question
-					case 3:
-						//Last Question & Show Scores			
-				}//switch
-			}//while
+			//print message
+			gameServer.getServerGUI().printMessage("Got message: " + message);
+			
 			//close resources
 			in.close();
 			out.close();
