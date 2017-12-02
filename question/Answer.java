@@ -21,11 +21,6 @@ public class Answer implements Serializable{
     private int questionID;
     
     /**
-     * answer type
-     */
-    private String answerType;
-    
-    /**
      * result is C for correct or I for incorrect
      */
     private char result;
@@ -34,12 +29,10 @@ public class Answer implements Serializable{
      * constructor method
      * 
      * @param questionID question id
-     * @param answerType answer type
      * @param result result is C or I
      */
-    public Answer(int questionID, String answerType, char result) {
+    public Answer(int questionID, char result) {
         this.questionID = questionID;
-        this.answerType = answerType;
         this.result = result;
     }
 
@@ -57,22 +50,6 @@ public class Answer implements Serializable{
      */
     public void setQuestionID(int questionID) {
         this.questionID = questionID;
-    }
-
-    /**
-     * accessor method of answerType
-     * @return answerType
-     */
-    public String getAnswerType() {
-        return answerType;
-    }
-
-    /**
-     * mutator method of answerType
-     * @param questionID answer type
-     */
-    public void setAnswerType(String answerType) {
-        this.answerType = answerType;
     }
 
     /**

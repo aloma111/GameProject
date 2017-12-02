@@ -26,13 +26,12 @@ public class TrueFalseQuestion extends Question  implements Serializable{
      * constructor
      * 
      * @param questionID question ID
-     * @param questionType question type
      * @param question question content
      * @param correctAnswer correct answer
      */
-    public TrueFalseQuestion(int questionID, String questionType, String question, 
+    public TrueFalseQuestion(int questionID, String question, 
     		boolean correctAnswer) {
-        super(questionID, questionType, question);
+        super(questionID, question);
         this.correctAnswer = correctAnswer;
     }
 

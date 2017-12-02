@@ -35,15 +35,13 @@ public class MultiChoiceQuestion extends Question  implements Serializable{
      * constructor
      * 
      * @param questionID question ID
-     * @param questionType question type
      * @param question question content
-     * @param status status
      * @param correctAnswer correct answer
      * @param multiAnswer mutl answer
      */
-    public MultiChoiceQuestion(int questionID, String questionType, 
-    		String question, boolean status, String correctAnswer, boolean multiAnswer) {
-        super(questionID, questionType, question);
+    public MultiChoiceQuestion(int questionID, 
+    		String question, String correctAnswer, boolean multiAnswer) {
+        super(questionID, question);
         this.correctAnswer = correctAnswer;
         this.multiAnswer = multiAnswer;
     }

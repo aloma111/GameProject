@@ -21,11 +21,6 @@ public class Question implements Serializable{
     protected int questionID;
     
     /**
-     * question  type
-     */
-    protected String questionType;
-    
-    /**
      * question content
      */
     protected String question;
@@ -34,12 +29,10 @@ public class Question implements Serializable{
      * constructor method
      * 
      * @param questionID question ID
-     * @param questionType question type
      * @param question question content
      */
-    public Question(int questionID, String questionType, String question) {
+    public Question(int questionID, String question) {
         this.questionID = questionID;
-        this.questionType = questionType;
         this.question = question;
     }
 
@@ -49,14 +42,6 @@ public class Question implements Serializable{
      */
     public int getQuestionID() {
         return questionID;
-    }
-
-    /**
-     * accessor method of questionType
-     * @return question type
-     */
-    public String getQuestionType() {
-        return questionType;
     }
 
     /**
