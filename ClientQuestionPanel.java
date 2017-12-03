@@ -1,4 +1,12 @@
-import java.awt.Component;
+/**
+ * 
+ * Author: Moath Alomar
+ * Student ID: 2283736
+ * Course number: CPSC 353
+ * Section, assignment or exercise number: Class Project
+ * Description: ClientQuestionPanel displays the question based on 
+ * its type (true/false question or multichoice question)
+ */
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -120,14 +128,26 @@ public class ClientQuestionPanel extends JPanel{
 		}
 	}
 	
+	/**
+	 * true/false answer
+	 * @param answer answer
+	 */
 	private void doTrueFalseAnswer(boolean answer){
 		System.out.println("doTrueFalseAnswer: " + answer);
 	}
 	
+	/**
+	 * multichoice answer
+	 * @param answer answer
+	 */
 	private void doMultichoiceAnswer(int answer){
 		System.out.println("doTruedoMultichoiceAnswerFalseAnswer: " + answer);
 	}
 	
+	/**
+	 * single choice answer
+	 * @param answer answer
+	 */
 	private void doSinglechoiceAnswer(int answer){
 		System.out.println("doSinglechoiceAnswer: " + answer);
 	}

@@ -1,3 +1,13 @@
+/**
+ * 
+ * Author: Parker Janke
+ * Student ID: 2251871
+ * Course number: CPSC 353
+ * Section, assignment or exercise number: Class Project
+ * Description: Message represents a message that is sent/received between
+ * client and server
+ */
+
 import java.io.Serializable;
 
 import question.Answer;
