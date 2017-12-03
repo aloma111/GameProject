@@ -1,8 +1,8 @@
 
 /**
  * 
- * Author: Moath Alomar
- * Student ID: 2283736
+ * Author: Parker Janke
+ * Student ID: 2251871
  * Course number: CPSC 353
  * Section, assignment or exercise number: Class Project
  * Description: Game client open a secure connection to the TCP secure socket server

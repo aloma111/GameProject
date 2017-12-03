@@ -44,7 +44,6 @@ public class ServerGUI extends JFrame{
 		initialize();
 	}
 	
-
 	/**
 	 * create components
 	 */
