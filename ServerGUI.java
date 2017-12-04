@@ -1,7 +1,7 @@
 /**
  * 
- * Author: Mohammed Alsoheem
- * Student ID: 2283736
+ * Author: Moath Alomar
+ * Student ID: 2283739
  * Course number: CPSC 353
  * Section, assignment or exercise number: Class Project
  * Description: The ServerGUI create GameServer, run it
