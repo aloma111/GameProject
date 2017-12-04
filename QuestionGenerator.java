@@ -55,6 +55,9 @@ public class QuestionGenerator {
 	 * @throws FileNotFoundException 
 	 */
 	private void loadQuestions() throws FileNotFoundException{
+		
+		questions = new ArrayList<>();
+		
 		//create Scanner object
 		Scanner fileScanner = new Scanner(new File(QUESTIONS_FILENAME));
 		
