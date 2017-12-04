@@ -1,6 +1,6 @@
 /**
  * 
- * Author: Mohammed Alsoheem
+ * Author: Moath Alomar
  * Student ID: 2283736
  * Course number: CPSC 353
  * Section, assignment or exercise number: Class Project
