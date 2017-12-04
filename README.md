@@ -30,7 +30,7 @@ javac *.java
 Open terminal or command line and enter the following command to run server
 java ServerGUI
 
-Open terminal or command line and enter the following command to run client
+Open a new terminal or command line and enter the following command to run client
 java ClientGUI
 
 
