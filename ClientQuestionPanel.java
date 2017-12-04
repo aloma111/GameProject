@@ -1,7 +1,7 @@
 /**
  * 
  * Author: Moath Alomar
- * Student ID: 2283736
+ * Student ID: 2283739
  * Course number: CPSC 353
  * Section, assignment or exercise number: Class Project
  * Description: ClientQuestionPanel displays the question based on 
