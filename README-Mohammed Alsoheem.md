@@ -7,7 +7,7 @@
    GameClientHandler
    Configuration
    ClientGUI
-- Add code comment
+- Added code comment
 - Fix bug
 - Testing
-- Write CPSC353 Final Submission.docx
+
