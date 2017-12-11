@@ -21,19 +21,12 @@ public class Answer implements Serializable{
     private int questionID;
     
     /**
-     * result is C for correct or I for incorrect
-     */
-    private char result;
-
-    /**
      * constructor method
      * 
      * @param questionID question id
-     * @param result result is C or I
      */
-    public Answer(int questionID, char result) {
+    public Answer(int questionID) {
         this.questionID = questionID;
-        this.result = result;
     }
 
     /**
@@ -52,19 +45,4 @@ public class Answer implements Serializable{
         this.questionID = questionID;
     }
 
-    /**
-     * accessor method of result
-     * @return result
-     */
-    public char getResult() {
-        return result;
-    }
-
-    /**
-     * mutator method of result
-     * @param result result is correct or incorrect
-     */
-    public void setResult(char result) {
-        this.result = result;
-    }
 }

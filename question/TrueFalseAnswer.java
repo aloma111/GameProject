@@ -27,11 +27,10 @@ public class TrueFalseAnswer extends Answer implements Serializable{
      * constructor method
      * 
      * @param questionID question id
-     * @param result result is C or I
      * @param answer user answer
      */
-    public TrueFalseAnswer(int questionID,  char result, boolean answer) {
-        super(questionID, result);
+    public TrueFalseAnswer(int questionID, boolean answer) {
+        super(questionID);
         this.answer = answer;
     }
 

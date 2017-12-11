@@ -27,11 +27,10 @@ public class MultiChoiceAnswer extends Answer implements Serializable{
      * constructor method
      * 
      * @param questionID question ID
-     * @param result correct result 
      * @param answer user answer
      */
-    public MultiChoiceAnswer(int questionID, char result, String answer) {
-        super(questionID, result);
+    public MultiChoiceAnswer(int questionID, String answer) {
+        super(questionID);
         this.answer = answer;
     }
 
