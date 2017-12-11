@@ -23,15 +23,19 @@ questions/Question.java
 questions/TrueFalseAnswer.java
 questions/TrueFalseQuestion.java
 
-
----------------------How to run ------------------
 Open terminal or command line and enter the following command to build
 javac *.java
 
+---------------------How to run ------------------
 Open terminal or command line and enter the following command to run server
-java ServerGUI
+java ServerGUI 1234
 
-Open a new terminal or command line and enter the following command to run client
-java ClientGUI
+Open terminal or command line and enter the following command to run client
+java ClientGUI localhost 1234
+java ClientGUI localhost 1234
+java ClientGUI localhost 1234
+...
+
+
 
 
