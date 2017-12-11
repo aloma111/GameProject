@@ -195,6 +195,7 @@ public class ClientGUI extends JFrame{
 	private void doAnswer(){		
 		try {
 			client.doAnswer();
+			clearAnswer();//clear all answers
 		} catch (IOException e) {
 			//exception, simply print to standard output
 			e.printStackTrace();

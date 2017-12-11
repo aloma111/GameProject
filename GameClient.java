@@ -132,6 +132,9 @@ public class GameClient extends Thread{
 				// exception, simply print to console
 				e.printStackTrace();
 			}	
+			
+			clientGUI.clearAnswer();//clear all answers
+			
 		}else if (msg.getContent() != null && !msg.getContent().equals("")){
 			clientGUI.printMessage(msg.getContent());
 		}else{

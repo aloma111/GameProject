@@ -267,8 +267,18 @@ public class GameServer extends Thread{
 			
 			question = questionGenerator.getQuestion();
 			
+			printMessage("Created new question");
+			
 			synObject.notifyAll();
 		}
+	}
+	
+	/**
+	 * display message 
+	 * @param msg message
+	 */
+	public void printMessage(String msg){
+		serverGUI.printMessage(msg);
 	}
 }
 

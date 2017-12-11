@@ -78,7 +78,9 @@ public class GameClientHandler extends Thread{
 					synchronized (out) {
 						out.writeObject(msg);
 						out.notifyAll();
-					}				
+					}		
+					
+					gameServer.printMessage("Sent information to client");
 					
 					//send the question to client
 					msg = new Message();
@@ -89,6 +91,7 @@ public class GameClientHandler extends Thread{
 						out.notifyAll();
 					}
 					
+					gameServer.printMessage("Sent question to client");
 					
 					gameState = 2;
 					
