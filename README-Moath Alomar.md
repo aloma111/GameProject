@@ -4,6 +4,6 @@
    ClientGUI
    ClientQuestionPanel
 - Write README.md   
-- Add code comment
-- Fix bug
+- Added code comment
+- Fixed bug
 - Testing
