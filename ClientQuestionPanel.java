@@ -1,7 +1,7 @@
 /**
  * 
  * Author: Moath Alomar
- * Student ID: 2283739
+ * Student ID: 2283736
  * Course number: CPSC 353
  * Section, assignment or exercise number: Class Project
  * Description: ClientQuestionPanel displays the question based on 
@@ -37,10 +37,17 @@ public class ClientQuestionPanel extends JPanel{
 	private JTextArea textContent;
 	
 	/**
+	 * reference to ClientGUI object
+	 */
+	private ClientGUI clientGUI;
+	
+	/**
 	 * constructor
 	 * @param question question
 	 */
-	public ClientQuestionPanel(Question question){
+	public ClientQuestionPanel(ClientGUI clientGUI, Question question){
+		
+		this.clientGUI = clientGUI;
 		this.question = question;
 		
 		//initialize components
@@ -133,7 +140,8 @@ public class ClientQuestionPanel extends JPanel{
 	 * @param answer answer
 	 */
 	private void doTrueFalseAnswer(boolean answer){
-		System.out.println("doTrueFalseAnswer: " + answer);
+		//System.out.println("doTrueFalseAnswer: " + answer);
+		clientGUI.setTrueFalseAnswer(answer);
 	}
 	
 	/**
@@ -141,7 +149,8 @@ public class ClientQuestionPanel extends JPanel{
 	 * @param answer answer
 	 */
 	private void doMultichoiceAnswer(int answer){
-		System.out.println("doTruedoMultichoiceAnswerFalseAnswer: " + answer);
+		//System.out.println("doTruedoMultichoiceAnswerFalseAnswer: " + answer);
+		clientGUI.setMultichoiceAnswer(answer);
 	}
 	
 	/**
@@ -149,6 +158,7 @@ public class ClientQuestionPanel extends JPanel{
 	 * @param answer answer
 	 */
 	private void doSinglechoiceAnswer(int answer){
-		System.out.println("doSinglechoiceAnswer: " + answer);
+		//System.out.println("doSinglechoiceAnswer: " + answer);
+		clientGUI.setSinglechoiceAnswer(answer);
 	}
 }
