@@ -25,6 +25,18 @@ public class Message implements Serializable{
 	 * answer
 	 */
 	private Answer answer;
+	
+	/**
+	 * information for client
+	 * 1. number of players
+	 * 2. current player's score
+	 * 3. highest score
+	 * 4. lowest score
+	 * 5. number of correct answers
+	 * 6. number of incorrect answers
+	 * 
+	 */
+	private String content;
 
 	/**
 	 * accessor method of question
@@ -56,6 +68,22 @@ public class Message implements Serializable{
 	 */
 	public void setAnswer(Answer answer) {
 		this.answer = answer;
+	}
+
+	/**
+	 * accessor method of content
+	 * @return content content
+	 */
+	public String getContent() {
+		return content;
+	}
+
+	/**
+	 * mutator method of content
+	 * @param content content
+	 */
+	public void setContent(String content) {
+		this.content = content;
 	}
 	
 	

@@ -48,6 +48,15 @@ public class QuestionGenerator {
 	 */
 	private QuestionGenerator() throws FileNotFoundException{
 		loadQuestions();
+		
+		//random questions
+		for (int i = 0; i < questions.size(); i++){
+			int randomIndex = (int)(Math.random() * questions.size());
+			//swap
+			Question temp = questions.get(i);
+			questions.set(i, questions.get(randomIndex));
+			questions.set(randomIndex, temp);					
+		}
 	}
 	
 	/**
@@ -111,11 +120,23 @@ public class QuestionGenerator {
 	
 	/**
 	 * get current question
-	 * @return
+	 * @return current question
 	 */
 	public Question getQuestion(){
 		index = (index + 1) % questions.size();
 		return questions.get(index);
 	}
 	
+	/**
+	 * get question by index
+	 * @return question with index
+	 */
+	public Question getQuestion(int questionIndex){
+		for (Question question: questions){
+			if (question.getQuestionID() == questionIndex){
+				return question;
+			}
+		}
+		return null;
+	}
 }
