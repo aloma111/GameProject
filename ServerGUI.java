@@ -1,7 +1,7 @@
 /**
  * 
- * Author: Moath Alomar
- * Student ID: 2283739
+ * Author: Mohammed Alsoheem
+ * Student ID: 2283736
  * Course number: CPSC 353
  * Section, assignment or exercise number: Class Project
  * Description: The ServerGUI create GameServer, run it
@@ -38,9 +38,15 @@ public class ServerGUI extends JFrame{
 	private JTextArea txtMessage;
 	
 	/**
+	 * server port
+	 */
+	private int serverPort;
+	
+	/**
 	 * constructor
 	 */
-	public ServerGUI(){
+	public ServerGUI(int port){
+		this.serverPort = port;
 		initialize();
 	}
 	
@@ -96,7 +102,7 @@ public class ServerGUI extends JFrame{
 	 * start the server
 	 */
 	private void start(){
-		GameServer server = new GameServer(this);
+		GameServer server = new GameServer(this, serverPort);
 		try {
 			server.start();
 			printMessage("Server is running");
@@ -126,8 +132,23 @@ public class ServerGUI extends JFrame{
 	 * @throws Exception if error
 	 */
 	public static void main(String[] args) throws Exception {
+		
+		//validate argument
+		if (args.length != 1){
+			System.out.println("Usage: java ServerGUI <server port>");
+			return;
+		}
+		
+		int port = 0;
+		try{
+			port = Integer.parseInt(args[0]);
+		}catch(Exception e){
+			System.out.println("Port is invalid. Usage: java ServerGUI <server port>");
+			return;
+		}
+		
 		//create ServerGUI object
-		ServerGUI server = new ServerGUI();
+		ServerGUI server = new ServerGUI(port);
 		server.setVisible(true);
 	}
 	

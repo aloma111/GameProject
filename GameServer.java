@@ -22,7 +22,12 @@ import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLServerSocketFactory;
 
+import question.Answer;
+import question.MultiChoiceAnswer;
+import question.MultiChoiceQuestion;
 import question.Question;
+import question.TrueFalseAnswer;
+import question.TrueFalseQuestion;
 /**
  * Game Server
  */
@@ -31,7 +36,7 @@ public class GameServer extends Thread{
 	/**
 	 * server port
 	 */
-	private static int SERVER_PORT = 1234;
+	private int serverPort;
 	
 	/**
 	 * list of GameClientHandler object
@@ -44,22 +49,43 @@ public class GameServer extends Thread{
 	private ServerGUI serverGUI;
 	
 	/**
+	 * correct score
+	 */
+	private static final int CORRECT_SCORE = 10;
+	
+	/**
+	 * incorrect score
+	 */
+	private static final int INCORRECT_SCORE = -5;
+	
+	/**
 	 * question generator
 	 */
 	private QuestionGenerator questionGenerator;
 	
 	/**
+	 * number of correct answers
+	 */
+	private int numCorrectAnswers = 0;
+	
+	/**
+	 * number of incorrect answers
+	 */
+	private int numInCorrectAnswers = 0;
+	
+	/**
 	 * constructor
 	 * initialize the array list
 	 */
-	public GameServer(ServerGUI serverGUI){
+	public GameServer(ServerGUI serverGUI, int serverPort){
 		clientHandlers = new ArrayList<>();
+		this.serverPort = serverPort;
 		this.serverGUI = serverGUI;
 		
 		//create unique instance of question generator
 		questionGenerator = QuestionGenerator.instance();
 		
-		//TODO, create sample
+		//get the first random question
 		question = questionGenerator.getQuestion();
 	}
 	
@@ -69,16 +95,15 @@ public class GameServer extends Thread{
 	private Question question = null;
 	
 	/**
+	 * Synchronized object to use this object
+	 */
+	private Object synObject = new Object();
+	
+	/**
 	 * get current question
 	 * @return current question
 	 */
 	public Question getCurrentQuestion(){
-		
-		//TODO - Test only
-		for (int i = 0; i < (int)(Math.random() * 4); i++){
-			question = questionGenerator.getQuestion();
-		}
-		
 		return question;
 	}
 	
@@ -107,7 +132,7 @@ public class GameServer extends Thread{
 		    SSLServerSocketFactory ssf = context.getServerSocketFactory();
 		    
 		    //create Server socket from 
-		    ServerSocket ss = ssf.createServerSocket(SERVER_PORT);
+		    ServerSocket ss = ssf.createServerSocket(serverPort);
 		    
 		    //loop to wait for client connection
 		    //if there is connection, the server open new thread
@@ -138,5 +163,112 @@ public class GameServer extends Thread{
 		return serverGUI;
 	}	
 	
+	/* 
+	 * create information that sends to client
+	 * 1. number of players
+	 * 2. current player's score
+	 * 3. highest score
+	 * 4. lowest score
+	 * 5. number of correct answers
+	 * 6. number of incorrect answers
+	 */ 
+	public Message createMessage(int score){
+		Message msg = new Message(); //create Message object
+		
+		StringBuffer content = new StringBuffer();
+		
+		synchronized (synObject) {
+			
+			content.append("Number of players: ").append(clientHandlers.size()).append("\n");
+			content.append("Your score: ").append(score).append("\n");
+			content.append("Highest score: ").append(calculateHighestScore()).append("\n");
+			content.append("Lowest score: ").append(calculateLowestScore()).append("\n");
+			content.append("Number of correct answers: ").append(numCorrectAnswers).append("\n");
+			content.append("Number of incorrect answers: ").append(numInCorrectAnswers).append("\n");
+			
+			synObject.notifyAll();
+		}
+		
+		msg.setContent(content.toString());
+		return msg;
+	}
 	
+	/**
+	 * calculate the highest score for all users
+	 * @return the highest score for all users
+	 */
+	private int calculateHighestScore(){
+		int score = clientHandlers.get(0).getScore();
+		for (int i = 1; i < clientHandlers.size(); i++){
+			if (score < clientHandlers.get(i).getScore()){
+				score = clientHandlers.get(i).getScore();
+			}
+		}
+		return score;
+	}
+	
+	/**
+	 * calculate the lowest score for all users
+	 * @return the lowest score for all users
+	 */
+	private int calculateLowestScore(){
+		int score = clientHandlers.get(0).getScore();
+		for (int i = 1; i < clientHandlers.size(); i++){
+			if (score > clientHandlers.get(i).getScore()){
+				score = clientHandlers.get(i).getScore();
+			}
+		}
+		return score;
+	}
+	
+	/**
+	 * process answer from player
+	 * @param handler one player (GameClientHandler)
+	 * @param answer user answer
+	 */
+	public void doAnswer(GameClientHandler handler, Answer answer){
+		if (answer == null){ //the client thread returns empty answer to move to next questions
+			return;
+		}
+		synchronized (synObject) {
+
+			if (answer.getQuestionID() == question.getQuestionID()){//current question
+				if (question instanceof TrueFalseQuestion && answer instanceof TrueFalseAnswer){
+					
+					TrueFalseQuestion q = (TrueFalseQuestion) question;
+					TrueFalseAnswer a = (TrueFalseAnswer) answer;
+					if (q.isCorrectAnswer() == a.isAnswer()){
+						//correct answer
+						handler.setScore(handler.getScore() + CORRECT_SCORE);
+					}else{//incorrect answer
+						handler.setScore(handler.getScore() + INCORRECT_SCORE);
+					}
+				}else if (question instanceof MultiChoiceQuestion && answer instanceof MultiChoiceAnswer){
+					MultiChoiceQuestion q = (MultiChoiceQuestion) question;
+					MultiChoiceAnswer a = (MultiChoiceAnswer) answer;
+					if (q.getCorrectAnswer().equalsIgnoreCase(a.getAnswer())){
+						//correct answer
+						handler.setScore(handler.getScore() + CORRECT_SCORE);
+					}else{//incorrect answer
+						handler.setScore(handler.getScore() + INCORRECT_SCORE);
+					}
+				}//others, ignore
+				
+				//send message to notify that the server got answer
+				for (GameClientHandler client: clientHandlers){
+					if (client != handler){
+						//send current information to client
+						Message msg = createMessage(client.getScore());
+						msg.setAnswer(answer);//send the answer from answered client
+						client.sendMessge(msg);
+					}
+				}
+			}
+			
+			question = questionGenerator.getQuestion();
+			
+			synObject.notifyAll();
+		}
+	}
 }
+
